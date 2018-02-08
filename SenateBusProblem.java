@@ -38,7 +38,7 @@ public class SenateBusProblem {
         double rand_bus =  new Random().nextDouble();
         double wait_time_bus = Math.round(Math.log10(rand_bus)*-1*mean_bus)%1000;
         double rand_passenger = new Random().nextDouble();
-        double wait_time_passenger = Math.round(Math.log10(rand_bus)*-1*mean_passenger)%10;
+        double wait_time_passenger = Math.round(Math.log10(rand_passenger)*-1*mean_passenger)%10;
         
         int i = 0;
         while (true){
