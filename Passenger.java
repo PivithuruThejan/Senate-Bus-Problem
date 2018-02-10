@@ -31,20 +31,20 @@ public class Passenger extends Thread {
     
     public void run(){
         try {
-            mutex.acquire();
+            mutex.acquire(); // put a passenger to boardin area
         } catch (InterruptedException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
-        passengerCounter.incrementCount();
+        passengerCounter.incrementCount(); // increment passenger counter
         System.out.println("Passenger with Id:" + passengerId + " added to boarding area");
         mutex.release();
         try {
-            bus.acquire();
+            bus.acquire(); // wait for a bus
         } catch (InterruptedException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
-        board(passengerId);
-        boarded.release();
+        board(passengerId); // board the passenger to the bus
+        boarded.release(); // notify that passenger boarded to the bus
     }
     public void board(int passengerId){
         System.out.println("Boarded Passenger Id:" + passengerId);

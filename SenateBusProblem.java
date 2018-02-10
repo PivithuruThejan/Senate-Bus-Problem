@@ -37,17 +37,21 @@ public class SenateBusProblem {
         double mean_bus=1200000;
         double rand_bus =  new Random().nextDouble();
         double wait_time_bus = Math.round(Math.log10(rand_bus)*-1*mean_bus)%1000;
+// create a time interval for bus
         double rand_passenger = new Random().nextDouble();
         double wait_time_passenger = Math.round(Math.log10(rand_passenger)*-1*mean_passenger)%10;
+// create a time intervel for passenger
         
         int i = 0;
         while (true){
-            time_curr=System.currentTimeMillis();
+            time_curr=System.currentTimeMillis();// take current time
             diff_passenger=time_curr-time_prev_passenger;
+// calculate time between previous passenger
             diff_bus=time_curr-time_prev_bus;
+// calculate time between previous bus
             if(diff_passenger >= wait_time_passenger){
                 (new Passenger(passengerCounter, mutex, bus, boarded, i)).
-                    start();
+                    start();// create a new passenger thread
                 time_prev_passenger=time_curr;
                 rand_passenger  = new Random().nextDouble();   
                 wait_time_passenger = Math.round(Math.log10(rand_passenger)*-1*mean_passenger)%10;
@@ -56,6 +60,7 @@ public class SenateBusProblem {
             
             if (diff_bus >= wait_time_bus) {
                 (new Bus(passengerCounter, mutex, bus, boarded)).start();
+// create a new bus thread
                 time_prev_bus=time_curr;
                 rand_bus  = new Random().nextDouble();
                 wait_time_bus = Math.round(Math.log10(rand_bus)*-1*mean_bus)%1000;

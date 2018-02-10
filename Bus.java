@@ -29,23 +29,26 @@ public class Bus extends Thread {
    
     public void run(){
         try {
-            mutex.acquire();
+            mutex.acquire(); // bus enters to the boarding area
             System.out.println("+++++++++++Bus Arrived!+++++++++++++");
         } catch (InterruptedException ex) {
             Logger.getLogger(Bus.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int n = Math.min(50, passengerCounter.getCount());
+        int n = Math.min(50, passengerCounter.getCount()); 
+// find the number of passengers per bus
         for (int i = 0 ; i < n ; i++){
-            bus.release();
+            bus.release(); 
+// notify the  arrival of bus to the passengers who are elligible to get in
             try {
-                boarded.acquire();
+                boarded.acquire(); // wait for each passenger get into the bus
             } catch (InterruptedException ex) {
                 Logger.getLogger(Bus.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        int m = Math.max((passengerCounter.getCount() - 50), 0);
-        passengerCounter.setCount(m);
-        depart();
+        int m = Math.max((passengerCounter.getCount() - 50), 0); 
+// find remaining passengers
+        passengerCounter.setCount(m); // update passenger count
+        depart(); // bus departs
         mutex.release();
     }
 

@@ -10,7 +10,7 @@ package senatebusproblem;
  * @author User
  */
 public class PassengerCounter {
-    private int count = 0;
+    private int count = 0;// Passenger count
     
     public int getCount(){
 		return count;
